@@ -10,7 +10,7 @@ export type TActionState<TInput, TOutput> = {
   data?: TOutput;
 };
 
-export const createSaveAction = <TInput, TOutput>(
+export const createSafeAction = <TInput, TOutput>(
   schema: z.Schema<TInput>,
   handler: (validatedData: TInput) => Promise<TActionState<TInput, TOutput>>
 ) => {  

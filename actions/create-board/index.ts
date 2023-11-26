@@ -4,7 +4,7 @@ import { auth } from "@clerk/nextjs";
 import { TInputType, TReturnType } from "./types";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
-import { createSaveAction } from "@/lib/create-safe-action";
+import { createSafeAction } from "@/lib/create-safe-action";
 import { CreateBoardSchema } from "./schema";
 
 const handler = async (data: TInputType): Promise<TReturnType> => {
@@ -49,4 +49,4 @@ const handler = async (data: TInputType): Promise<TReturnType> => {
   return { data: board };
 };
 
-export const createBoard = createSaveAction(CreateBoardSchema, handler);
+export const createBoard = createSafeAction(CreateBoardSchema, handler);
