@@ -23,7 +23,7 @@ const FormButton = ({
   children,
   disabled,
   className,
-  variant = "primary",
+  variant = "primary"
 }: IFormSubmitProps) => {
   const { pending } = useFormStatus();
 
