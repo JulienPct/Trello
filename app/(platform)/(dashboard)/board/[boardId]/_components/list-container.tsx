@@ -3,6 +3,8 @@
 import { TListWithCards } from "@/types";
 import { List } from "@prisma/client";
 import ListForm from "./list-form";
+import { useEffect, useState } from "react";
+import ListItem from "./list-item";
 
 interface IListContainerProps {
   data: TListWithCards[];
@@ -10,13 +12,20 @@ interface IListContainerProps {
 }
 
 const ListContainer = ({ data, boardId }: IListContainerProps) => {
+  const [orderedData, setOrderedData] = useState(data);
+
+  useEffect(() => {
+    setOrderedData(data);
+  }, [data]);
+
   return (
-    <div>
-      <ol>
-        <ListForm />
-        <div className="flex shrink-0 w-1" />
-      </ol>
-    </div>
+    <ol className="flex gap-x-3 h-full">
+      {orderedData.map((list, index) => (
+        <ListItem key={list.id} index={index} data={list} />
+      ))}
+      <ListForm />
+      <div className="flex shrink-0 w-1" />
+    </ol>
   );
 };
 
