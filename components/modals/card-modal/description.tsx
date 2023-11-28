@@ -53,6 +53,9 @@ const Description = ({ data }: IDescriptionProps) => {
       queryClient.invalidateQueries({
         queryKey: ["card", data.id],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["card-logs", data.id],
+      });
       toast.success(`La carte "${data.title}" a été mise à jour avec succès`);
       disableEditing();
     },

@@ -6,6 +6,8 @@ import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { DuplicateCardSchema } from "./schema";
 import { createSafeAction } from "@/lib/create-safe-action";
+import createAuditLog from "@/lib/create-audit-log";
+import { ACTION, ENTITY_TYPE } from "@prisma/client";
 
 const handler = async (data: TInputType): Promise<TReturnType> => {
   const { userId, orgId } = auth();
@@ -39,6 +41,13 @@ const handler = async (data: TInputType): Promise<TReturnType> => {
         order: newOrder,
         listId: cardToDuplicate.listId,
       },
+    });
+
+    await createAuditLog({
+      entityTitle: card.title,
+      entityId: card.id,
+      entityType: ENTITY_TYPE.CARD,
+      action: ACTION.CREATE,
     });
   } catch (error) {
     return {
